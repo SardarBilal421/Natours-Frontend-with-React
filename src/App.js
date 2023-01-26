@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Navbar } from "./Navbar/Navbar";
+import React from "react";
+
+import FrontPage from "./fontPages/FrontPage";
+import ProfilePage from "./fontPages/ProfilePage";
+import Footer from "./footer/Footer";
+import Signup from "./logInSignUp/Signup";
+import Login from "./logInSignUp/Login";
+import { useState } from "react";
 
 function App() {
+  const [page, setPage] = useState("frontPage");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App conatiner m-3">
+      <Navbar setPage={setPage} page={page} />
+      {page === "frontPage" ? (
+        <FrontPage />
+      ) : page === "Login" ? (
+        <Login setPage={setPage} />
+      ) : page === "loggedIn" ? (
+        <ProfilePage />
+      ) : (
+        <Signup />
+      )}
+      <Footer />
     </div>
   );
 }

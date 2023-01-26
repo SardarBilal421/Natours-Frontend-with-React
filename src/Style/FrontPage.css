@@ -1,0 +1,48 @@
+.main-div{
+
+    background-color: #f7f7f7;
+}
+
+
+.FrontPage{
+    opacity: 90%;
+}
+.cardPicture{
+    background-image: linear-gradient(to right bottom , rgba(127, 214, 113, 0.521), rgba(40, 180, 136, 0.658)),url('./../img/nat-1.jpg');
+
+    height: 200px;
+    clip-path: polygon(0 0,100% 0,100% 150px,0 100%);
+    
+    background-blend-mode:color-burn;
+}
+.card{
+    position: relative;
+}
+.cardTitle{
+position: absolute;
+font-size: 30px;
+top: 22%;
+left: 50%;
+background-image: linear-gradient(to right bottom , rgba(125, 213, 111, 0.85), rgba(40, 180, 135, 0.85));
+text-align: center;
+}
+
+.cardFooter{
+    position: relative;
+}
+
+.cardButton{
+    background-color: rgba(125, 213, 111, 0.85);
+    border-radius: 20px;
+}
+.cardButton:hover{
+    background-color: rgba(125, 213, 111, 0.85);
+    transform:translateY(-5px);
+    box-shadow: 3px 5px 2px 1px rgba(0, 0, 0, 0.1);
+    
+}
+.cardButton-main{
+    position: absolute;
+    left: 55%;
+    top: 25%;
+}

@@ -1,0 +1,26 @@
+.footer-main{
+    background-color: #f7f7f7;
+    padding-top: 50px;
+}
+
+
+.footer-part-1{
+background-image: url(./../img/logo-green-small-1x.png);
+height: 100px;
+margin-left: 80px;
+background-repeat: no-repeat;
+}
+.footer-part-2{
+    margin-right: 10px;
+    text-align: right;
+}
+a{
+    text-decoration: none;
+    color: black ;
+    opacity: 50%;
+    font-size:small;
+    margin-right: 5px;
+}
+p{
+
+}
