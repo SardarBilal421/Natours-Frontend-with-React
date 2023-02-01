@@ -8,3 +8,13 @@
 /* .loggedIn{
     border: none;
 } */
+
+.linkBtn{
+    color: white;
+    opacity: 1;
+    padding: 5px;
+    margin: 0;
+}
+.linkBtn:hover{
+    color: black;
+}

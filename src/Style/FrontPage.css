@@ -17,12 +17,14 @@
 }
 .card{
     position: relative;
+    height: 100%;
 }
 .cardTitle{
 position: absolute;
 font-size: 30px;
+float: right;
 top: 22%;
-left: 50%;
+left: 45%;
 background-image: linear-gradient(to right bottom , rgba(125, 213, 111, 0.85), rgba(40, 180, 135, 0.85));
 text-align: center;
 }
