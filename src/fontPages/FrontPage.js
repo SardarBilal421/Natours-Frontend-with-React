@@ -6,7 +6,10 @@ import "./../Style/FrontPage.css";
 import file from "./../Utilities/data/tours.json";
 
 export default function FrontPage() {
+  // Component States
   const [data, setData] = useState([]);
+
+  // Hooks
   useEffect(() => {
     setData(file);
   }, []);
