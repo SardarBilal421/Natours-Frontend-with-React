@@ -1,27 +1,37 @@
-import React, { useState } from "react";
-// import { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import logoPicture from "./../img/logo-white.png";
-// import axios from "axios";
+
 import "./../Style/navbar.css";
-// import file from "./../Utilities/data/tours.json";
+import { LogInContext } from "../Context/loginContext/loginState";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Navbar(props) {
-  const { setPage, page } = props;
-  const [borderStyle, setBorderStyle] = useState({ border: "none" });
+  // Constext States
+  const { logIn, setLogIn } = useContext(LogInContext);
 
-  const togglePage = () => {
-    setPage("Signup");
+  //  component Variables
+  const borderStyle = { border: "none" };
+
+  // Hooks
+  const nav = useNavigate();
+
+  // Functions
+
+  const logOut = () => {
+    if (logIn) {
+      setLogIn(false);
+      console.log("Logged OUT");
+      nav("/");
+    }
   };
-  const togglePage1 = () => {
-    setPage("Login");
-  };
+
   return (
     <>
       <nav className="navbar Nav-Bar navbar-expand-lg ">
         <div className="container-fluid m-2">
-          <a className="navbar-brand text-white col-lg-5" href="/">
+          <Link className="navbar-brand text-white col-lg-5" to="/">
             All Tours
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -41,27 +51,30 @@ export function Navbar(props) {
             <form className="d-flex gap-4" role="search">
               <button
                 type="button"
-                onClick={togglePage1}
                 className="btn btn-outline-light"
-                style={page === "loggedIn" ? borderStyle : null}
+                onClick={logOut}
+                style={logIn ? borderStyle : null}
               >
-                {page === "loggedIn" ? "LOG OUT" : "Log In"}
+                <Link to="/login" className="linkBtn">
+                  {logIn ? "LOG OUT" : "Log In"}
+                </Link>
               </button>
 
               <button
                 type="button"
-                onClick={togglePage}
                 className="btn btn-outline-light"
-                style={page === "loggedIn" ? borderStyle : null}
+                style={logIn ? borderStyle : null}
               >
-                {page === "loggedIn" ? (
-                  <>
-                    <span className="material-symbols-outlined">person</span>
-                    USER
-                  </>
-                ) : (
-                  "Sign In"
-                )}
+                <Link to="/signup" className="linkBtn">
+                  {logIn ? (
+                    <>
+                      <span className="material-symbols-outlined">person</span>
+                      USER
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
+                </Link>
               </button>
             </form>
           </div>
