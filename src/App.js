@@ -1,30 +1,27 @@
 import { Navbar } from "./Navbar/Navbar";
 import React from "react";
-
-import FrontPage from "./fontPages/FrontPage";
-import ProfilePage from "./fontPages/ProfilePage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./footer/Footer";
 import Signup from "./logInSignUp/Signup";
 import Login from "./logInSignUp/Login";
-import { useState } from "react";
+import MainPage from "./fontPages/mainPage";
 
 function App() {
-  const [page, setPage] = useState("frontPage");
-
   return (
-    <div className="App conatiner m-3">
-      <Navbar setPage={setPage} page={page} />
-      {page === "frontPage" ? (
-        <FrontPage />
-      ) : page === "Login" ? (
-        <Login setPage={setPage} />
-      ) : page === "loggedIn" ? (
-        <ProfilePage />
-      ) : (
-        <Signup />
-      )}
-      <Footer />
-    </div>
+    <>
+      <div className="container-fluid m-1">
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route exact path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<p>Not found</p>} />
+          </Routes>
+          <Footer />
+        </Router>
+      </div>
+    </>
   );
 }
 
