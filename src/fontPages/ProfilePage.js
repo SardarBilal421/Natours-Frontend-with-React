@@ -1,5 +1,6 @@
 import React from "react";
 import "./../Style/profilePage.css";
+
 export default function ProfilePage() {
   return (
     <div className="main container-fluid m-0 row">
@@ -27,7 +28,7 @@ export default function ProfilePage() {
             <h3>YOUR ACCOUNT SETTINGS</h3>
             <form>
               <div className="form-group mt-5">
-                <label forHtml="name">Name</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -37,7 +38,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="form-group">
-                <label forHtml="email">Email address</label>
+                <label htmlFor="email">Email address</label>
                 <input
                   type="email"
                   className="form-control"
@@ -48,7 +49,7 @@ export default function ProfilePage() {
               </div>
               <div className="form-group">
                 <span className="material-symbols-outlined">person</span>
-                <label forHtml="profilePic">Choose New Photo</label>
+                <label htmlFor="profilePic">Choose New Photo</label>
                 <input type="file" className="form-control" id="profilePic" />
               </div>
 
@@ -62,7 +63,7 @@ export default function ProfilePage() {
             <h3>CHANGE YOUR PASSWORD</h3>
             <form>
               <div className="form-group mt-5">
-                <label forHtml="currentPassword">Current Password</label>
+                <label htmlFor="currentPassword">Current Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -72,7 +73,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="form-group">
-                <label forHtml="newPassword">New Password</label>
+                <label htmlFor="newPassword">New Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -82,7 +83,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="form-group">
-                <label forHtml="cPassword">Confirm Password</label>
+                <label htmlFor="cPassword">Confirm Password</label>
                 <input
                   type="password"
                   className="form-control"
