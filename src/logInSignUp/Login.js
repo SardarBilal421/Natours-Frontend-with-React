@@ -33,10 +33,9 @@ export default function Login() {
       });
 
       if (response.data.status === "success") {
+        localStorage.setItem("token", response.data.token);
         setLogIn(true);
-        console.log("Loged In");
         nav("/");
-        warningText = "";
       }
     } catch (error) {
       console.log(error);

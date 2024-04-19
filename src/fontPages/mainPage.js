@@ -10,5 +10,6 @@ export default function MainPage() {
 
   //Chose pages depends on LogIn state
 
-  return <>{logIn ? <ProfilePage /> : <FrontPage />}</>;
+  // return <>{logIn ? <ProfilePage /> : <FrontPage />}</>;
+  return <>{localStorage.getItem("token") ? <ProfilePage /> : <FrontPage />}</>;
 }

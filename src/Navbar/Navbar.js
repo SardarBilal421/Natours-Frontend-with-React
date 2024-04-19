@@ -19,6 +19,9 @@ export function Navbar(props) {
 
   const logOut = () => {
     if (logIn) {
+      console.log(localStorage.getItem("token"));
+      localStorage.removeItem("token");
+      console.log(localStorage.getItem("token"));
       setLogIn(false);
       console.log("Logged OUT");
       nav("/");
