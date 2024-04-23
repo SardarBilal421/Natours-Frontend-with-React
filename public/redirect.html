@@ -2,15 +2,24 @@
 <html>
 <head>
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; URL='exp://192.168.18.110:8081'">
     <script type="text/javascript">
-        window.onload = function() {
-            // Redirect for browsers that don't follow meta refresh tags
-            window.location.href = "exp://192.168.18.110:8081";
-        };
+        function redirectToApp() {
+          
+            const urlParams = new URLSearchParams(window.location.search);
+          console.log("1===>>",urlParams);
+          
+          const mode = urlParams.get('mode');
+          console.log("2===>>",mode);
+          const oobCode = urlParams.get('oobCode');
+          console.log("3===>>",oobCode);
+          const customUri = `exp://192.168.18.110:8081/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
+          console.log("4===>>",customUri);
+          window.location.href = customUri;
+        }
+        window.onload = redirectToApp;
     </script>
 </head>
-<body>
-    <p>If you are not redirected, <a href="exp://192.168.18.110:8081">click here</a>.</p>
+<body onload="redirectToApp();">
+    <p>If you are not redirected, <a href="javascript:redirectToApp();">click here</a>.</p>
 </body>
 </html>
