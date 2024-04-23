@@ -4,18 +4,19 @@
     <title>Redirecting...</title>
     <script type="text/javascript">
         function redirectToApp() {
-            // Get the full URL of the current page
-            const fullUrl = window.location.href;
-
-            // Create a URL object to easily access query parameters
-            const url = new URL(fullUrl);
-            const mode = url.searchParams.get("mode");
-            const oobCode = url.searchParams.get("oobCode");
-
-            // Construct the custom URI with parameters
-            const customUri = `exp://192.168.18.110:8081/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
-            window.location.href = customUri;
+          
+            const urlParams = new URLSearchParams(window.location.search);
+          console.log("1===>>",urlParams);
+          
+          const mode = urlParams.get('mode');
+          console.log("2===>>",mode);
+          const oobCode = urlParams.get('oobCode');
+          console.log("3===>>",oobCode);
+          const customUri = `exp://192.168.18.110:8081/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
+          console.log("4===>>",customUri);
+          window.location.href = customUri;
         }
+        window.onload = redirectToApp;
     </script>
 </head>
 <body onload="redirectToApp();">
