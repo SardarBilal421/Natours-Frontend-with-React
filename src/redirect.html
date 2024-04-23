@@ -2,15 +2,34 @@
 <html>
 <head>
     <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0; URL='exp://192.168.18.110:8081'">
     <script type="text/javascript">
-        window.onload = function() {
-            // Redirect for browsers that don't follow meta refresh tags
-            window.location.href = "exp://192.168.18.110:8081";
-        };
+        function getQueryParams() {
+            var queryParams = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (typeof queryParams[pair[0]] === "undefined") {
+                    queryParams[pair[0]] = decodeURIComponent(pair[1]);
+                } else if (typeof queryParams[pair[0]] === "string") {
+                    var arr = [queryParams[pair[0]], decodeURIComponent(pair[1])];
+                    queryParams[pair[0]] = arr;
+                } else {
+                    queryParams[pair[0]].push(decodeURIComponent(pair[1]));
+                }
+            }
+            return queryParams;
+        }
+
+        function redirectToCustomURI() {
+            var params = getQueryParams();
+            var customUri = "exp://192.168.18.110:8081/";
+            var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+            window.location.href = customUri + (queryString ? '?' + queryString : '');
+        }
     </script>
 </head>
-<body>
-    <p>If you are not redirected, <a href="exp://192.168.18.110:8081">click here</a>.</p>
+<body onload="redirectToCustomURI();">
+    <p>If you are not redirected, <a href="javascript:redirectToCustomURI();">click here</a>.</p>
 </body>
 </html>
