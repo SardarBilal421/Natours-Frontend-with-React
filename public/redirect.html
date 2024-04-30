@@ -13,7 +13,9 @@
           console.log("2===>>",mode);
           const oobCode = urlParams.get('oobCode');
           console.log("3===>>",oobCode);
-          const customUri = `exp://192.168.18.110:8081/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}&myCode=${fullUrl}`;
+          const myIPCODE = urlParams.get('myIpCode');
+          console.log("10===>>",myIPCODE);
+          const customUri = `${myIPCODE}/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}&myCode=${fullUrl}`;
           console.log("4===>>",customUri);
           window.location.href = customUri;
         }
