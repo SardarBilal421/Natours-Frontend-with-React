@@ -25,7 +25,7 @@
           const urlP = new URLSearchParams(continueUrl);
             const myIPCODE = urlP.get('myIpCode');
           console.log("10===>>",myIPCODE);
-          const customUri = `exp://192.168.18.110:8081/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}&myCode=${fullUrl}`;
+          const customUri = `${myIPCODE}/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}&myCode=${fullUrl}`;
           console.log("4===>>",customUri);
           window.location.href = customUri;
         }
