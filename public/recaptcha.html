@@ -7,13 +7,16 @@
     function onSubmit(token) {
       window.ReactNativeWebView.postMessage(token);
     }
+    function triggerRecaptcha() {
+      grecaptcha.execute();
+    }
   </script>
 </head>
 <body>
-  <form action="?" method="POST">
-    <div class="g-recaptcha" data-sitekey="6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK" data-callback="onSubmit"></div>
-    <br/>
-    <input type="submit" value="Submit">
-  </form>
+    <div class="g-recaptcha"
+       data-sitekey="6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK"
+       data-callback="onSubmit"
+       data-size="invisible"></div>
+
 </body>
 </html>
