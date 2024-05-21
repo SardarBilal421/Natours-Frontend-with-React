@@ -1,7 +1,13 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>reCAPTCHA</title>
+
+
+  <head>
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK"></script>
+
+  </head>
   <script src="https://recaptchaenterprise.googleapis.com/v1/projects/unitedapp-1716137987255/assessments?key=6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK" async defer></script>
   <script type="text/javascript">
     function onSubmit(token) {
@@ -11,6 +17,15 @@
       grecaptcha.execute();
     }
   </script>
+
+<script>
+  function onClick(e) {
+    e.preventDefault();
+    grecaptcha.enterprise.ready(async () => {
+      const token = await grecaptcha.enterprise.execute('6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK', {action: 'LOGIN'});
+    });
+  }
+</script>
 </head>
 <body>
     <div class="g-recaptcha"
@@ -19,4 +34,24 @@
        data-size="invisible"></div>
 
 </body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>reCAPTCHA Verification</title>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+      function onSubmit(token) {
+        window.ReactNativeWebView.postMessage(`recaptcha:${token}`);
+      }
+    </script>
+  </head>
+  <body>
+    <form action="?" method="POST">
+      <div class="g-recaptcha" data-sitekey="6Le4yOEpAAAAAJd7Vm2jKaHVRTt_qW4CVqjeQ2pK" data-callback="onSubmit"></div>
+    </form>
+  </body>
 </html>
