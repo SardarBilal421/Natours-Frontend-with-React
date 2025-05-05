@@ -14,7 +14,6 @@
 
                 const mode = urlParams.get('mode');
                 const oobCode = urlParams.get('oobCode');
-                const continueUrl = urlParams.get('continueUrl');
                 const apiKey = urlParams.get('apiKey');
 
                 console.log("Mode ===>>", mode);
@@ -24,28 +23,33 @@
 
                 // Handle password reset flow
                 if (mode === 'resetPassword' && oobCode) {
-                    const baseUrl = 'https://natours-react-cyan.vercel.app';
-                    customUri = `${baseUrl}/auth/reset-password?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
+                    customUri = `unitedapp-623c2://auth/reset-password?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
                     console.log("Password Reset Redirect ===>>", customUri);
                 }
-                // Handle custom redirect flow
-                else if (continueUrl) {
-                    const urlP = new URLSearchParams(continueUrl);
-                    const myIPCODE = urlP.get('myIpCode');
-
-                    if (!myIPCODE) {
-                        throw new Error('myIpCode is missing from continue URL');
-                    }
-
-                    console.log("myIPCODE ===>>", myIPCODE);
-                    customUri = `${myIPCODE}/?mode=${encodeURIComponent(mode || '')}&oobCode=${encodeURIComponent(oobCode || '')}&myCode=${encodeURIComponent(fullUrl)}`;
-                    console.log("Custom Redirect ===>>", customUri);
+                // Handle sign in flow
+                else if (mode === 'signIn') {
+                    customUri = `unitedapp-623c2://auth/login?mode=${encodeURIComponent(mode)}&myCode=${encodeURIComponent(fullUrl)}`;
+                    console.log("Sign In Redirect ===>>", customUri);
                 }
                 else {
                     throw new Error('Invalid redirect parameters');
                 }
 
+                // Try to open the app first
                 window.location.href = customUri;
+
+                // Fallback to Play Store or App Store after a delay if app doesn't open
+                setTimeout(() => {
+                    if (document.hidden) return; // If page is hidden, app was opened
+                    // Fallback to stores or web
+                    if (/android/i.test(navigator.userAgent)) {
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.united.familyapp';
+                    } else if (/ipad|iphone|ipod/i.test(navigator.userAgent)) {
+                        window.location.href = 'https://apps.apple.com/app/your-app-id'; // Replace with your App Store URL
+                    } else {
+                        window.location.href = 'https://unitedfamily.app';
+                    }
+                }, 1500); // Increased timeout to 1.5 seconds for better reliability
             } catch (error) {
                 console.error("Redirect failed:", error);
                 document.getElementById('error-message').textContent = `Redirect failed: ${error.message}`;
