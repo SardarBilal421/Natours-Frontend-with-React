@@ -1,31 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Redirecting...</title>
     <script type="text/javascript">
-      
         function redirectToApp() {
-            const fullUrl = window.location.href;
-            console.log("0===>>",fullUrl);
-            const urlParams = new URLSearchParams(window.location.search);
-          console.log("1===>>",urlParams);
-          
-          const mode = urlParams.get('mode');
-          console.log("2===>>",mode);
-          const oobCode = urlParams.get('oobCode');
-          console.log("3===>>",oobCode);
-          const continueUrl = urlParams.get('continueUrl');
-          const urlP = new URLSearchParams(continueUrl);
-            const myIPCODE = urlP.get('myIpCode');
-          console.log("10===>>",myIPCODE);
-          const customUri = `${myIPCODE}/?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}&myCode=${fullUrl}`;
-          console.log("4===>>",customUri);
-          window.location.href = customUri;
+            try {
+                const fullUrl = window.location.href;
+                console.log("Full URL ===>>", fullUrl);
+
+                const urlParams = new URLSearchParams(window.location.search);
+                console.log("URL Params ===>>", urlParams.toString());
+
+                const mode = urlParams.get('mode');
+                const oobCode = urlParams.get('oobCode');
+                const continueUrl = urlParams.get('continueUrl');
+                const apiKey = urlParams.get('apiKey');
+
+                console.log("Mode ===>>", mode);
+                console.log("OOB Code ===>>", oobCode);
+
+                let customUri;
+
+                // Handle password reset flow
+                if (mode === 'resetPassword' && oobCode) {
+                    const baseUrl = 'https://natours-react-cyan.vercel.app';
+                    customUri = `${baseUrl}/auth/reset-password?mode=${encodeURIComponent(mode)}&oobCode=${encodeURIComponent(oobCode)}`;
+                    console.log("Password Reset Redirect ===>>", customUri);
+                }
+                // Handle custom redirect flow
+                else if (continueUrl) {
+                    const urlP = new URLSearchParams(continueUrl);
+                    const myIPCODE = urlP.get('myIpCode');
+
+                    if (!myIPCODE) {
+                        throw new Error('myIpCode is missing from continue URL');
+                    }
+
+                    console.log("myIPCODE ===>>", myIPCODE);
+                    customUri = `${myIPCODE}/?mode=${encodeURIComponent(mode || '')}&oobCode=${encodeURIComponent(oobCode || '')}&myCode=${encodeURIComponent(fullUrl)}`;
+                    console.log("Custom Redirect ===>>", customUri);
+                }
+                else {
+                    throw new Error('Invalid redirect parameters');
+                }
+
+                window.location.href = customUri;
+            } catch (error) {
+                console.error("Redirect failed:", error);
+                document.getElementById('error-message').textContent = `Redirect failed: ${error.message}`;
+            }
         }
-        window.onload = redirectToApp;
     </script>
 </head>
-<body onload="redirectToApp();">
-    <p>If you are not redirected, <a href="javascript:redirectToApp();">click here</a>.</p>
+
+<body>
+    <div id="error-message" style="color: red;"></div>
+    <p>Redirecting... If you are not redirected automatically, <a href="javascript:redirectToApp();">click here</a>.</p>
+    <script>
+        // Only call once when the page loads
+        window.onload = redirectToApp;
+    </script>
 </body>
+
 </html>
